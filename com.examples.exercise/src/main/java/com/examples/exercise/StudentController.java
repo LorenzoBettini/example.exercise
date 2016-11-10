@@ -7,9 +7,9 @@ public class StudentController {
 		this.studentsDB=studentsDB;
 	}
 
-	public void update(String id, String name) {
+	public boolean update(String id, String name) {
 		// TODO Auto-generated method stub
-		studentsDB.updateDB(id, name);
+		return studentsDB.exists(id);
 	}
 
 }

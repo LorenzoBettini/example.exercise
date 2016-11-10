@@ -3,4 +3,4 @@ language: java
 install: true
 
 script:
- - mvn -f com.examples.myproject/pom.xml clean verify -Pjacoco-report coveralls:report
+ - mvn -f com.example.exercise/pom.xml clean verify -Pjacoco-report coveralls:report

@@ -9,7 +9,10 @@ public class StudentController {
 
 	public boolean update(String id, String name) {
 		// TODO Auto-generated method stub
-		return studentsDB.exists(id);
+		boolean dbAnswer=studentsDB.exists(id);
+		if(dbAnswer)
+			studentsDB.updateDB(id, name);
+		return dbAnswer;		
 	}
 
 }

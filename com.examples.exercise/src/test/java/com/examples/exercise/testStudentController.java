@@ -26,13 +26,19 @@ public class testStudentController {
 	
 	@Test
 	public void testUpdateWhithNoExistingStudents(){
-		when(myStudentsDB.exists("0000")).thenReturn(false);
-		verify(myStudentsDB, times(0)).updateDB(anyString(), anyString());
-		boolean result=studControl.update("0000","matteo");
-		assertEquals(false, result);
+		assertUpdate(false, 0);
+	}
+
+	@Test
+	public void testUpdateWithExistingStudents(){
+		assertUpdate(true, 1);
 	}
 	
-	
-	
+	private void assertUpdate(boolean dbAnswer, int expectedVerify) {
+		when(myStudentsDB.exists("0000")).thenReturn(dbAnswer);
+		verify(myStudentsDB, times(expectedVerify)).updateDB(anyString(), anyString());
+		boolean result=studControl.update("0000","matteo");
+		assertEquals(dbAnswer, result);
+	}
 
 }

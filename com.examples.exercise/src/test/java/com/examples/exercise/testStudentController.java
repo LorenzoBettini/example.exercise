@@ -36,8 +36,8 @@ public class testStudentController {
 	
 	private void assertUpdate(boolean dbAnswer, int expectedVerify) {
 		when(myStudentsDB.exists("0000")).thenReturn(dbAnswer);
-		verify(myStudentsDB, times(expectedVerify)).updateDB(anyString(), anyString());
 		boolean result=studControl.update("0000","matteo");
+		verify(myStudentsDB, times(expectedVerify)).updateDB(anyString(), anyString());
 		assertEquals(dbAnswer, result);
 	}
 

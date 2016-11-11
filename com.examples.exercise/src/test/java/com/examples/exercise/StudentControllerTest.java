@@ -7,20 +7,20 @@ import static org.mockito.Mockito.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class testStudentController {
+public class StudentControllerTest {
 	private StudentController studControl;
-	private StudentsDB myStudentsDB;
+	private Database myDBInstance;
 
 	@Before
 	public void setup() {
-		myStudentsDB = mock(StudentsDB.class);
-		studControl = new StudentController(myStudentsDB);
+		myDBInstance = mock(Database.class);
+		studControl = new StudentController(myDBInstance);
 	}
 
 	@Test
 	public void testUpdateIterationWithDB() {
 		studControl.update("0000", "matteo");
-		verify(myStudentsDB, times(1)).exists("0000");
+		verify(myDBInstance, times(1)).exists("0000");
 	}
 
 	@Test
@@ -34,12 +34,12 @@ public class testStudentController {
 	}
 
 	private void assertUpdate(boolean dbAnswer, String id, String name) {
-		when(myStudentsDB.exists(id)).thenReturn(dbAnswer);
+		when(myDBInstance.exists(id)).thenReturn(dbAnswer);
 		boolean result = studControl.update(id, name);
 		if(dbAnswer)
-			verify(myStudentsDB, times(1)).updateDB(id, name);
+			verify(myDBInstance, times(1)).updateDB(id, name);
 		else
-			verify(myStudentsDB, times(0)).updateDB(id, name);
+			verify(myDBInstance, times(0)).updateDB(id, name);
 		assertEquals(dbAnswer, result);
 	}
 

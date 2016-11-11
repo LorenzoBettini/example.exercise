@@ -1,16 +1,16 @@
 package com.examples.exercise;
 
 public class StudentController {
-	private StudentsDB studentsDB;
+	private Database dbInstance;
 
-	public StudentController(StudentsDB studentsDB) {
-		this.studentsDB = studentsDB;
+	public StudentController(Database dbInstance) {
+		this.dbInstance = dbInstance;
 	}
 
 	public boolean update(String id, String name) {
-		boolean dbAnswer = studentsDB.exists(id);
+		boolean dbAnswer = dbInstance.exists(id);
 		if (dbAnswer)
-			studentsDB.updateDB(id, name);
+			dbInstance.updateDB(id, name);
 		return dbAnswer;
 	}
 

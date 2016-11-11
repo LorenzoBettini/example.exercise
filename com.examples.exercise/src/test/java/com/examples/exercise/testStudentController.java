@@ -19,8 +19,8 @@ public class testStudentController {
 
 	@Test
 	public void testUpdateIterationWithDB() {
-		studControl.update("00000", "matteo");
-		verify(myStudentsDB, times(1)).exists(anyString());
+		studControl.update("0000", "matteo");
+		verify(myStudentsDB, times(1)).exists("0000");
 	}
 
 	@Test
@@ -37,9 +37,9 @@ public class testStudentController {
 		when(myStudentsDB.exists(id)).thenReturn(dbAnswer);
 		boolean result = studControl.update(id, name);
 		if(dbAnswer)
-			verify(myStudentsDB, times(1)).updateDB(anyString(), anyString());
+			verify(myStudentsDB, times(1)).updateDB(id, name);
 		else
-			verify(myStudentsDB, times(0)).updateDB(anyString(), anyString());
+			verify(myStudentsDB, times(0)).updateDB(id, name);
 		assertEquals(dbAnswer, result);
 	}
 

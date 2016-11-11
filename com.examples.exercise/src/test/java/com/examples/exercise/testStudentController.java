@@ -21,23 +21,25 @@ public class testStudentController {
 	public void testUpdateIterationWithDB() {
 		studControl.update("00000", "matteo");
 		verify(myStudentsDB, times(1)).exists(anyString());
-
 	}
 
 	@Test
 	public void testUpdateWhithNoExistingStudents() {
-		assertUpdate(false, 0, "0000", "matteo");
+		assertUpdate(false, "0000", "matteo");
 	}
 
 	@Test
 	public void testUpdateWithExistingStudents() {
-		assertUpdate(true, 1, "0000", "matteo");
+		assertUpdate(true, "0000", "matteo");
 	}
 
-	private void assertUpdate(boolean dbAnswer, int expectedVerify, String id, String name) {
+	private void assertUpdate(boolean dbAnswer, String id, String name) {
 		when(myStudentsDB.exists(id)).thenReturn(dbAnswer);
 		boolean result = studControl.update(id, name);
-		verify(myStudentsDB, times(expectedVerify)).updateDB(anyString(), anyString());
+		if(dbAnswer)
+			verify(myStudentsDB, times(1)).updateDB(anyString(), anyString());
+		else
+			verify(myStudentsDB, times(0)).updateDB(anyString(), anyString());
 		assertEquals(dbAnswer, result);
 	}
 

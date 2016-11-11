@@ -33,6 +33,7 @@ public class SchoolControllerTest {
 	public void testGetAllStudentsWhenThereIsOneStudent() {
 		students.add(new Student());
 		List<Student> allStudents = schoolController.getAllStudents();
+		verify(database, times(1)).getAllStudentsList();
 		assertEquals(1, allStudents.size());	
 	}
 

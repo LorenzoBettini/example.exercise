@@ -4,7 +4,9 @@ import java.util.List;
 
 public interface Database {
 
-	List<Student> getAllStudentsList();
+	public List<Student> getAllStudentsList();
 
+	public void updateDB(String id, String name);
 
+	public boolean exists(String id);
 }

@@ -1,6 +1,5 @@
 package com.examples.exercise;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SchoolController {

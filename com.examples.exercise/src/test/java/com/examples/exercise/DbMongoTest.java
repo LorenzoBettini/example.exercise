@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.fakemongo.Fongo;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
@@ -33,6 +34,15 @@ public class DbMongoTest {
 	@Test
 	public void testGetAllStudentsEmpty() {
 		assertTrue(database.getAllStudentsList().isEmpty());
+	}
+	
+	@Test
+	public void testGetAllStudentsNotEmpty(){
+		BasicDBObject document = new BasicDBObject();
+		document.put("id", "1");
+		document.put("name", "first");
+		students.insert(document);
+		assertEquals(1, database.getAllStudentsList().size());
 	}
 
 }

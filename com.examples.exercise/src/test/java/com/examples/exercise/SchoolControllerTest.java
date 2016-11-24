@@ -40,16 +40,19 @@ public class SchoolControllerTest {
 	@Test
 	public void testAddStudentBase(){
 		Student student = factoryStudent("1", "Pippo");
-		verify(database, times(1)).add(student);
+		when(database.exists(anyString())).thenReturn(false);
 		assertTrue(schoolController.addToDB(student));
+		verify(database, times(1)).add(student);
+
 	}
 	
 	@Test
 	public void testAddStudentWhenIsDuplicate(){
 		Student student = factoryStudent("1", "Pippo");
-		when(database.exists(anyString())).thenReturn(false);
-		verify(database, times(1)).exists(student.getId());
+		when(database.exists(anyString())).thenReturn(true);
 		assertFalse(schoolController.addToDB(student));
+		verify(database, times(1)).exists(student.getId());
+
 	}
 	
 

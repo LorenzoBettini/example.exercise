@@ -31,8 +31,8 @@ public class DbMongoTest {
 	}
 	
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testGetAllStudentsEmpty() {
+		assertTrue(database.getAllStudentsList().isEmpty());
 	}
 
 }

@@ -34,7 +34,19 @@ public class SchoolControllerTest {
 		students.add(new Student());
 		List<Student> allStudents = schoolController.getAllStudents();
 		verify(database, times(1)).getAllStudentsList();
-		assertEquals(1, allStudents.size());	
+		assertEquals(1, allStudents.size());
+	}
+
+	@Test
+	public void testGetStudentByIdIterationWithDB() {
+		schoolController.getStudentById("0000");
+		verify(database, times(1)).takeStudentsById("0000");
+	}
+
+	@Test
+	public void testGetStudentByIdWithBadIndex() {
+		when(database.takeStudentsById("0000")).thenReturn(null);
+		schoolController.getAllStudents();
 	}
 	
 	@Test
@@ -54,7 +66,16 @@ public class SchoolControllerTest {
 		verify(database, times(1)).exists(student.getId());
 
 	}
+
 	
+	@Test
+	public void testGetStudentByIdWithCorrectedIndex() {
+		Student student = factoryStudent("0000", "matteo");
+		when(database.takeStudentsById("0000")).thenReturn(student);
+
+		Student result = schoolController.getStudentById("0000");
+		assertSame(student, result);
+	}
 
 	private Student factoryStudent(String id, String name) {
 		Student student = new Student();
@@ -62,5 +83,4 @@ public class SchoolControllerTest {
 		student.setName(name);
 		return student;
 	}
-	
 }

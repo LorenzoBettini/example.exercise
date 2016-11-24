@@ -22,4 +22,7 @@ public class SchoolController {
 		return true;
 	}
 
+	public Student getStudentById(String id) {
+		return database.takeStudentsById(id);
+	}
 }

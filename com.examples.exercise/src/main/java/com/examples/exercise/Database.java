@@ -12,4 +12,5 @@ public interface Database {
 
 	public void add(Student student);
 
+	public Student takeStudentsById(String id);
 }

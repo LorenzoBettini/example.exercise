@@ -39,10 +39,20 @@ public class SchoolControllerTest {
 	
 	@Test
 	public void testAddStudentBase(){
-		Student student = new Student();
-		student.setId("1");
-		student.setName("Pippo");
+		Student student = factoryStudent("1", "Pippo");
 		assertTrue(schoolController.addToDB(student));
+	}
+
+	private Student factoryStudent(String id, String name) {
+		Student student = new Student();
+		student.setId(id);
+		student.setName(name);
+		return student;
+	}
+	
+	@Test
+	public void testAddStudentWhenIsDuplicate(){
+		
 	}
 	
 }

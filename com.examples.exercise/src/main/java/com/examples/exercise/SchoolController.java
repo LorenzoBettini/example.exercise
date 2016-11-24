@@ -14,4 +14,10 @@ public class SchoolController {
 		return database.getAllStudentsList();
 	}
 
+	public boolean addToDB(Student student) {
+
+		database.add(student);
+		return true;
+	}
+
 }

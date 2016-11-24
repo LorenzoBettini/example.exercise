@@ -36,5 +36,13 @@ public class SchoolControllerTest {
 		verify(database, times(1)).getAllStudentsList();
 		assertEquals(1, allStudents.size());	
 	}
-
+	
+	@Test
+	public void testAddStudentBase(){
+		Student student = new Student();
+		student.setId("1");
+		student.setName("Pippo");
+		assertTrue(schoolController.addToDB(student));
+	}
+	
 }

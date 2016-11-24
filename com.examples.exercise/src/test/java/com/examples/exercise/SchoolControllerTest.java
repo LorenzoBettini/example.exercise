@@ -46,6 +46,7 @@ public class SchoolControllerTest {
 	@Test
 	public void testGetStudentByIdWithBadIndex(){
 		when(database.takeStudentsById("0000")).thenReturn(null);
+		schoolController.getAllStudents();
 	}
 
 }

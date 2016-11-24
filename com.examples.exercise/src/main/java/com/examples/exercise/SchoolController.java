@@ -15,7 +15,9 @@ public class SchoolController {
 	}
 
 	public boolean addToDB(Student student) {
-
+		if(!database.exists(student.getId())){
+			return false;
+		}
 		database.add(student);
 		return true;
 	}

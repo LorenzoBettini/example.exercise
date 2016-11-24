@@ -40,19 +40,24 @@ public class SchoolControllerTest {
 	@Test
 	public void testAddStudentBase(){
 		Student student = factoryStudent("1", "Pippo");
+		verify(database, times(1)).add(student);
 		assertTrue(schoolController.addToDB(student));
 	}
+	
+	@Test
+	public void testAddStudentWhenIsDuplicate(){
+		Student student = factoryStudent("1", "Pippo");
+		when(database.exists(anyString())).thenReturn(false);
+		verify(database, times(1)).exists(student.getId());
+		assertFalse(schoolController.addToDB(student));
+	}
+	
 
 	private Student factoryStudent(String id, String name) {
 		Student student = new Student();
 		student.setId(id);
 		student.setName(name);
 		return student;
-	}
-	
-	@Test
-	public void testAddStudentWhenIsDuplicate(){
-		
 	}
 	
 }

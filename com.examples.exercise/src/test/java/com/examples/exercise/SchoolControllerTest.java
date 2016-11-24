@@ -36,5 +36,16 @@ public class SchoolControllerTest {
 		verify(database, times(1)).getAllStudentsList();
 		assertEquals(1, allStudents.size());	
 	}
+	
+	@Test
+	public void testGetStudentByIdIterationWithDB(){
+		schoolController.getStudentById("0000");
+		verify(database, times(1)).takeStudentsById("0000");
+	}
+	
+	@Test
+	public void testGetStudentByIdWithBadIndex(){
+		when(database.takeStudentsById("0000")).thenReturn(null);
+	}
 
 }

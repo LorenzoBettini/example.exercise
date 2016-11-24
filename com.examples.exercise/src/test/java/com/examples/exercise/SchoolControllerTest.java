@@ -48,5 +48,16 @@ public class SchoolControllerTest {
 		when(database.takeStudentsById("0000")).thenReturn(null);
 		schoolController.getAllStudents();
 	}
+	
+	@Test
+	public void testGetStudentByIdWithCorrectedIndex(){
+		Student student=new Student();
+		student.setId("0000");
+		student.setName("matteo");
+		when(database.takeStudentsById("0000")).thenReturn(student);
+		
+		Student result=schoolController.getStudentById("0000");
+		assertSame(student, result);
+	}
 
 }

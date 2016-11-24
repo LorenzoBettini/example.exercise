@@ -36,5 +36,31 @@ public class SchoolControllerTest {
 		verify(database, times(1)).getAllStudentsList();
 		assertEquals(1, allStudents.size());	
 	}
+	
+	@Test
+	public void testUpdateIterationWithDB() {
+		schoolController.update("0000", "matteo");
+		verify(database, times(1)).exists("0000");
+	}
+
+	@Test
+	public void testUpdateWhithNoExistingStudents() {
+		assertUpdate(false, "0000", "matteo");
+	}
+
+	@Test
+	public void testUpdateWithExistingStudents() {
+		assertUpdate(true, "0000", "matteo");
+	}
+
+	private void assertUpdate(boolean dbAnswer, String id, String name) {
+		when(database.exists(id)).thenReturn(dbAnswer);
+		boolean result = schoolController.update(id, name);
+		if(dbAnswer)
+			verify(database, times(1)).updateDB(id, name);
+		else
+			verify(database, times(0)).updateDB(id, name);
+		assertEquals(dbAnswer, result);
+	}
 
 }

@@ -34,30 +34,29 @@ public class SchoolControllerTest {
 		students.add(new Student());
 		List<Student> allStudents = schoolController.getAllStudents();
 		verify(database, times(1)).getAllStudentsList();
-		assertEquals(1, allStudents.size());	
+		assertEquals(1, allStudents.size());
 	}
-	
+
 	@Test
-	public void testGetStudentByIdIterationWithDB(){
+	public void testGetStudentByIdIterationWithDB() {
 		schoolController.getStudentById("0000");
 		verify(database, times(1)).takeStudentsById("0000");
 	}
-	
+
 	@Test
-	public void testGetStudentByIdWithBadIndex(){
+	public void testGetStudentByIdWithBadIndex() {
 		when(database.takeStudentsById("0000")).thenReturn(null);
 		schoolController.getAllStudents();
 	}
-	
+
 	@Test
-	public void testGetStudentByIdWithCorrectedIndex(){
-		Student student=new Student();
+	public void testGetStudentByIdWithCorrectedIndex() {
+		Student student = new Student();
 		student.setId("0000");
 		student.setName("matteo");
 		when(database.takeStudentsById("0000")).thenReturn(student);
-		
-		Student result=schoolController.getStudentById("0000");
+
+		Student result = schoolController.getStudentById("0000");
 		assertSame(student, result);
 	}
-
 }

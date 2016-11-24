@@ -15,9 +15,6 @@ public class SchoolController {
 	}
 
 	public Student getStudentById(String id) {
-		// TODO Auto-generated method stub
 		return database.takeStudentsById(id);
 	}
-	
-
 }

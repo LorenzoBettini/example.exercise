@@ -17,7 +17,6 @@ public class DbMongoTest {
 	private DbMongo database;
 	private DBCollection students;
 	
-	
 	@Before
 	public void setUp() throws UnknownHostException{
 		Fongo fongo = new Fongo("exercise server");
@@ -43,6 +42,8 @@ public class DbMongoTest {
 		document.put("name", "first");
 		students.insert(document);
 		assertEquals(1, database.getAllStudentsList().size());
+		assertEquals("1", database.getAllStudentsList().get(0).getId());
+		assertEquals("first", database.getAllStudentsList().get(0).getName());
 	}
 
 }

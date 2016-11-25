@@ -36,4 +36,8 @@ public class DbMongo implements Database {
 		return false;
 	}
 
+	public Student takeStudentsById(String id) {
+		return null;
+	}
+
 }

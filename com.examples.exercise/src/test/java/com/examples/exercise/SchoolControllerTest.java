@@ -34,7 +34,55 @@ public class SchoolControllerTest {
 		students.add(new Student());
 		List<Student> allStudents = schoolController.getAllStudents();
 		verify(database, times(1)).getAllStudentsList();
-		assertEquals(1, allStudents.size());	
+		assertEquals(1, allStudents.size());
+	}
+	
+	@Test
+	public void testUpdateIterationWithDB() {
+		schoolController.update("0000", "matteo");
+		verify(database, times(1)).exists("0000");
 	}
 
+	@Test
+	public void testUpdateWhithNoExistingStudents() {
+		assertUpdate(false, "0000", "matteo");
+	}
+
+	@Test
+	public void testUpdateWithExistingStudents() {
+		assertUpdate(true, "0000", "matteo");
+	}
+
+	private void assertUpdate(boolean dbAnswer, String id, String name) {
+		when(database.exists(id)).thenReturn(dbAnswer);
+		boolean result = schoolController.update(id, name);
+		if(dbAnswer)
+			verify(database, times(1)).updateDB(id, name);
+		else
+			verify(database, times(0)).updateDB(id, name);
+		assertEquals(dbAnswer, result);
+	}
+
+	@Test
+	public void testGetStudentByIdIterationWithDB() {
+		schoolController.getStudentById("0000");
+		verify(database, times(1)).takeStudentsById("0000");
+	}
+
+	@Test
+	public void testGetStudentByIdWithBadIndex() {
+		when(database.takeStudentsById("0000")).thenReturn(null);
+		schoolController.getAllStudents();
+	}
+
+	@Test
+	public void testGetStudentByIdWithCorrectedIndex() {
+		Student student = new Student();
+		student.setId("0000");
+		student.setName("matteo");
+		when(database.takeStudentsById("0000")).thenReturn(student);
+
+		Student result = schoolController.getStudentById("0000");
+		assertSame(student, result);
+	}
 }

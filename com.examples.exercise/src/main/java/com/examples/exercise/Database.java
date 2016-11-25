@@ -10,5 +10,4 @@ public interface Database {
 
 	public boolean exists(String id);
 
-	public Student takeStudentsById(String id);
-}
+	public Student takeStudentsById(String id);}

@@ -12,5 +12,6 @@ cache:
 install:
   - docker pull mongo
 
+
 script:
  - mvn -f com.examples.exercise/pom.xml clean verify coveralls:report

@@ -81,6 +81,7 @@ public class SchoolControllerTest {
 		when(database.exists(anyString())).thenReturn(false);
 		assertTrue(schoolController.addToDB(student));
 		verify(database, times(1)).add(student);
+		verify(database, times(1)).add(student);
 
 	}
 	
@@ -90,6 +91,7 @@ public class SchoolControllerTest {
 		when(database.exists(anyString())).thenReturn(true);
 		assertFalse(schoolController.addToDB(student));
 		verify(database, times(1)).exists(student.getId());
+		verify(database, times(0)).add(student);
 
 	}
 

@@ -40,4 +40,9 @@ public class DbMongo implements Database {
 		return null;
 	}
 
+	public void add(Student student) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -3,6 +3,7 @@ package com.examples.exercise;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -37,6 +38,12 @@ public class DbMongo implements Database {
 	}
 
 	public Student takeStudentsById(String id) {
+		if (this.exists(id)) {
+			BasicDBObject searchQuery = new BasicDBObject();
+			searchQuery.put("id", id);
+			DBObject toFind = students.findOne(searchQuery);
+			return new Student((String) toFind.get("id"), (String) toFind.get("name"));
+		}
 		return null;
 	}
 

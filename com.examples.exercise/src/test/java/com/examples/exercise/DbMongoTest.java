@@ -56,4 +56,12 @@ public class DbMongoTest {
 		assertNull(database.takeStudentsById("2"));
 	}
 	
+	@Test
+	public void testGetStudentByIdFound(){
+		this.addStudent("1", "first");
+		Student found = database.takeStudentsById("1");
+		assertNotNull(found);
+		assertEquals("1", found.getId());
+		assertEquals("first", found.getName());
+	}
 }

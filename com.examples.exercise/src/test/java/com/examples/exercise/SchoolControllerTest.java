@@ -74,15 +74,41 @@ public class SchoolControllerTest {
 		when(database.takeStudentsById("0000")).thenReturn(null);
 		schoolController.getAllStudents();
 	}
+	
+	@Test
+	public void testAddStudentBase(){
+		Student student = factoryStudent("1", "Pippo");
+		when(database.exists(anyString())).thenReturn(false);
+		assertTrue(schoolController.addToDB(student));
+		verify(database, times(1)).add(student);
+		verify(database, times(1)).add(student);
 
+	}
+	
+	@Test
+	public void testAddStudentWhenIsDuplicate(){
+		Student student = factoryStudent("1", "Pippo");
+		when(database.exists(anyString())).thenReturn(true);
+		assertFalse(schoolController.addToDB(student));
+		verify(database, times(1)).exists(student.getId());
+		verify(database, times(0)).add(student);
+
+	}
+
+	
 	@Test
 	public void testGetStudentByIdWithCorrectedIndex() {
-		Student student = new Student();
-		student.setId("0000");
-		student.setName("matteo");
+		Student student = factoryStudent("0000", "matteo");
 		when(database.takeStudentsById("0000")).thenReturn(student);
 
 		Student result = schoolController.getStudentById("0000");
 		assertSame(student, result);
+	}
+
+	private Student factoryStudent(String id, String name) {
+		Student student = new Student();
+		student.setId(id);
+		student.setName(name);
+		return student;
 	}
 }

@@ -37,13 +37,22 @@ public class DbMongoTest {
 	
 	@Test
 	public void testGetAllStudentsNotEmpty(){
-		BasicDBObject document = new BasicDBObject();
-		document.put("id", "1");
-		document.put("name", "first");
-		students.insert(document);
+		this.addStudent("1", "first");
 		assertEquals(1, database.getAllStudentsList().size());
 		assertEquals("1", database.getAllStudentsList().get(0).getId());
 		assertEquals("first", database.getAllStudentsList().get(0).getName());
 	}
+
+	private void addStudent(String id, String name) {
+		BasicDBObject document = new BasicDBObject();
+		document.put("id", id);
+		document.put("name", name);
+		students.insert(document);
+	}
+	
+//	@Test
+//	public void testGetStudentByIdWhichIsNotTher(){
+//		
+//	}
 
 }

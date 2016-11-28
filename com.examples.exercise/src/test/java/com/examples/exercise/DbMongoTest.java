@@ -37,7 +37,7 @@ public class DbMongoTest {
 	
 	@Test
 	public void testGetAllStudentsNotEmpty(){
-		this.addStudent("1", "first");
+		addStudent("1", "first");
 		assertEquals(1, database.getAllStudentsList().size());
 		assertEquals("1", database.getAllStudentsList().get(0).getId());
 		assertEquals("first", database.getAllStudentsList().get(0).getName());
@@ -52,13 +52,13 @@ public class DbMongoTest {
 	
 	@Test
 	public void testGetStudentByIdNotFound(){
-		this.addStudent("1", "first");
+		addStudent("1", "first");
 		assertNull(database.takeStudentsById("2"));
 	}
 	
 	@Test
 	public void testGetStudentByIdFound(){
-		this.addStudent("1", "first");
+		addStudent("1", "first");
 		Student found = database.takeStudentsById("1");
 		assertNotNull(found);
 		assertEquals("1", found.getId());

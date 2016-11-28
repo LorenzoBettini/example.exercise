@@ -34,22 +34,19 @@ public class DbMongo implements Database {
 	}
 
 	public boolean exists(String id) {
-		BasicDBObject query = new BasicDBObject();
-		query.put("id", id);
-		if (students.find(query).length()>0) {
+		if (takeStudentsById(id) != null) {
 			return true;
 		}
 		return false;
 	}
 
 	public Student takeStudentsById(String id) {
-		if (this.exists(id)) {
-			BasicDBObject searchQuery = new BasicDBObject();
-			searchQuery.put("id", id);
-			DBObject toFind = students.findOne(searchQuery);
-			return new Student((String) toFind.get("id"), (String) toFind.get("name"));
-		}
-		return null;
+		BasicDBObject searchQuery = new BasicDBObject();
+		searchQuery.put("id", id);
+		DBObject toFind = students.findOne(searchQuery);
+		return toFind != null ? 
+				new Student((String) toFind.get("id"), (String) toFind.get("name")) : 
+					null;
 	}
 
 }

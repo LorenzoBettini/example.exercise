@@ -50,9 +50,10 @@ public class DbMongoTest {
 		students.insert(document);
 	}
 	
-//	@Test
-//	public void testGetStudentByIdWhichIsNotTher(){
-//		
-//	}
-
+	@Test
+	public void testGetStudentByIdNotFound(){
+		this.addStudent("1", "first");
+		assertNull(database.takeStudentsById("2"));
+	}
+	
 }

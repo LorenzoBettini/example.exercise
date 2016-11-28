@@ -34,6 +34,11 @@ public class DbMongo implements Database {
 	}
 
 	public boolean exists(String id) {
+		BasicDBObject query = new BasicDBObject();
+		query.put("id", id);
+		if (students.find(query).length()>0) {
+			return true;
+		}
 		return false;
 	}
 

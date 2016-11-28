@@ -64,4 +64,7 @@ public class DbMongoTest {
 		assertEquals("1", found.getId());
 		assertEquals("first", found.getName());
 	}
+
+	
 }
+

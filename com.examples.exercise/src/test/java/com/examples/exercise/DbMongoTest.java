@@ -43,13 +43,6 @@ public class DbMongoTest {
 		assertEquals("first", database.getAllStudentsList().get(0).getName());
 	}
 
-	private void addStudent(String id, String name) {
-		BasicDBObject document = new BasicDBObject();
-		document.put("id", id);
-		document.put("name", name);
-		students.insert(document);
-	}
-	
 	@Test
 	public void testGetStudentByIdNotFound(){
 		addStudent("1", "first");
@@ -65,6 +58,24 @@ public class DbMongoTest {
 		assertEquals("first", found.getName());
 	}
 
+	@Test
+	public void testStudentExistNotExist(){
+		addStudent("1","first");
+		assertFalse(database.exists("2"));
+	}
 	
+	@Test
+	public void testStudentExistExist(){
+		addStudent("1","first");
+		addStudent("2", "second");
+		assertTrue(database.exists("2"));
+	}
+	
+	private void addStudent(String id, String name) {
+		BasicDBObject document = new BasicDBObject();
+		document.put("id", id);
+		document.put("name", name);
+		students.insert(document);
+	}
 }
 

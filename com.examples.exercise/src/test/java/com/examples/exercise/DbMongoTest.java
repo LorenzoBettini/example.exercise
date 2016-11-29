@@ -37,13 +37,45 @@ public class DbMongoTest {
 	
 	@Test
 	public void testGetAllStudentsNotEmpty(){
-		BasicDBObject document = new BasicDBObject();
-		document.put("id", "1");
-		document.put("name", "first");
-		students.insert(document);
+		addStudent("1", "first");
 		assertEquals(1, database.getAllStudentsList().size());
 		assertEquals("1", database.getAllStudentsList().get(0).getId());
 		assertEquals("first", database.getAllStudentsList().get(0).getName());
 	}
 
+	@Test
+	public void testGetStudentByIdNotFound(){
+		addStudent("1", "first");
+		assertNull(database.takeStudentsById("2"));
+	}
+	
+	@Test
+	public void testGetStudentByIdFound(){
+		addStudent("1", "first");
+		Student found = database.takeStudentsById("1");
+		assertNotNull(found);
+		assertEquals("1", found.getId());
+		assertEquals("first", found.getName());
+	}
+
+	@Test
+	public void testStudentExistNotExist(){
+		addStudent("1","first");
+		assertFalse(database.exists("2"));
+	}
+	
+	@Test
+	public void testStudentExistExist(){
+		addStudent("1","first");
+		addStudent("2", "second");
+		assertTrue(database.exists("2"));
+	}
+	
+	private void addStudent(String id, String name) {
+		BasicDBObject document = new BasicDBObject();
+		document.put("id", id);
+		document.put("name", name);
+		students.insert(document);
+	}
 }
+

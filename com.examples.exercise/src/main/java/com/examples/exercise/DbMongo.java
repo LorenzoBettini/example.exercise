@@ -30,6 +30,7 @@ public class DbMongo implements Database {
 	}
 
 	public void updateDB(String id, String name) {
+		throw new UnsupportedOperationException("to be implemented");
 	}
 
 	public boolean exists(String id) {

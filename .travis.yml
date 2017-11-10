@@ -2,16 +2,22 @@ sudo: false
 
 language: java
 
+addons:
+  sonarcloud:
+    organization: "lorenzobettini-github"
+    token:
+      secure: "Wd/611LG1vOVQbsT1Eh4jzJ30dpui4QMD2gmV4AMlDICdf9htX0NkHraGRRFDBe2XaM4EYds2pZMvxlcIi4hs0dFR5mmG9PaXd6iwUMxabmjKn3zbpzGLBlxL4PkjuWVVoXjkAN37ghEqqWzStVA2OHx7/dlgxlnJ4EnuLgXlpnyJCGYKFv3gdqBMTDu9Z58B09DNn2k3KDngJCtCG1YH0k1YeVVc7dKaKA49xuVxaYX7nutV6LMAqcc0cHNrYVSvTp34nYGcqZgYyFRf9/X9mVztrMSc5SmwDXnvhf/vJcgzCIleugtACOKEZCEw+A612YafTlihu9cuY9lpKiJfYTaV9RZ5gLyotgNLQJJb7WnbX6SUNxXI6FW6/xAkBxRqa/ecnYHHv3GqnjPSoqBaNkMK3oRi8qWW8/QehYd5orhJMeB+2kSBldzfa6XgajBfeZuAsqOpz/W3Pj4D7aEC70jBvultKnP8vah7OaHZr9pUOK3gsIsdQGMAZ2Nav2qDxdfFVrsfsHy1tNdZPkhefh1ORLH9V3rIvYPwATnbADRTZPgReiwn7u/CtIOJzsE21mhI/ikw3zTEteqLdAGtyj0MPWMXToyqsrLAcHuO13G1faI4qSgZt+PBADz+S+VuFvsM4tbuAoxqHTA025jBW0b1MI6Bea8r3oKI/rHyc0="
+
 services:
   - docker
 
 cache:
   directories:
-  - $HOME/.m2
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
 
 install:
   - docker pull mongo
 
-
 script:
- - mvn -f com.examples.exercise/pom.xml clean verify coveralls:report
+ - mvn -f com.examples.exercise/pom.xml clean verify sonar:sonar
